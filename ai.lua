@@ -1,24 +1,25 @@
 AI = {}
 
 function AI:load()
-  self.width = 20
-  self.height = 100
+  self.img = love.graphics.newImage("assests/2.png")
+  self.width = self.img:getWidth()
+  self.height = self.img:getHeight()
   self.x = love.graphics.getWidth() - self.width - 50
   self.y = love.graphics.getHeight() / 2
   self.yVel = 0
   self.speed = 800
 
   self.timer = 0
-  self.rate = 0.5
+  self.rate = 0.1
 end
 
 function AI:update(dt)
   self:move(dt)
   self.timer = self.timer + dt
-  -- if self.timer > self.rate then
-  --   self.timer = 0
-  --   self.acquireTarget()
-  -- end
+  if self.timer > self.rate then
+    self.timer = 0
+    self:acquireTarget()
+  end
   self:acquireTarget()
 end
 
@@ -37,5 +38,5 @@ function AI:acquireTarget()
 end
 
 function AI:draw()
-  love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
+  love.graphics.draw(self.img, self.x, self.y)
 end
